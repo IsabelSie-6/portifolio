@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="claro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isabel J. Siebert | Desenvolvedora Full Stack</title>
+    
+    <!-- Fontes do Google: Great Vibes (Cursiva), Cormorant Garamond (Serifada) e Lora (Corpo de Texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        /* ==========================================================================
+           1. VARIÁVEIS CSS (:root) - PALETA DE CORES E CONFIGURAÇÕES
+           ========================================================================== */
+        
+        /* Tema Claro: Conto de Fadas Clássico e Romântico (Fairycore / Vintage) */
+        :root {
+            --fundo-principal: #FFF0EC;
+            --fundo-card: #FFF8F1;
+            --fundo-card-translucido: rgba(255, 248, 241, 0.85);
+            --cor-borda: #E7B8BD;
+            --cor-sombra: rgba(148, 61, 91, 0.12);
+            
+            --texto-principal: #68464A;
+            --texto-destaque: #D65378;
+            --texto-titulo: #943D5B;
+            --cor-rosa-antigo: #C98798;
+            --cor-rosa-pastel: #F8DFE1;
+            --cor-dourado: #C89D5C;
+
+            --fonte-cursiva: 'Great Vibes', cursive;
+            --fonte-titulo: 'Cormorant Garamond', serif;
+            --fonte-corpo: 'Lora', serif;
+
+            --transicao-suave: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Tema Escuro: Romantic Gothic / Dark Fairytale / Castle at Midnight */
+        [data-tema="escuro"] {
+            --fundo-principal: #100B12;
+            --fundo-card: #190D17;
+            --fundo-card-translucido: rgba(25, 13, 23, 0.85);
+            --cor-borda: #42172D;
+            --cor-sombra: rgba(0, 0, 0, 0.5);
+
+            --texto-principal: #F5E7EB;
+            --texto-destaque: #E66A9A;
+            --texto-titulo: #F4C5D9;
+            --cor-rosa-antigo: #C77C9C;
+            --cor-rosa-pastel: #281321;
+            --cor-dourado: #B99A72;
+        }
+
+        /* Reset e Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--fundo-principal);
+            color: var(--texto-principal);
+            font-family: var(--fonte-corpo);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: var(--transicao-suave);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(214, 83, 120, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(201, 135, 152, 0.08) 0%, transparent 50%);
+        }
+
+        /* Personalização da Barra de Rolagem (Scrollbar) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--fundo-principal);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--cor-rosa-antigo);
+            border-radius: 10px;
+            border: 2px solid var(--fundo-principal);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--texto-destaque);
+        }
+
+        /* Utilitários de Tipografia */
+        h1, h2, h3, h4 {
+            font-family: var(--fonte-titulo);
+            color: var(--texto-titulo);
+            font-weight: 700;
+        }
+
+        .titulo-cursivo {
+            font-family: var(--fonte-cursiva);
+            font-weight: 400;
+            color: var(--texto-destaque);
+            line-height: 1.2;
+        }
+
+        .secao-titulo {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+
+        .secao-titulo h2 {
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+        }
+
+        .secao-titulo .subtitulo {
+            font-size: 2.2rem;
+            margin-top: -0.5rem;
+        }
+
+        .secao-titulo::after {
+            content: "❧ 🌹 ❧";
+            display: block;
+            font-size: 1.2rem;
+            color: var(--cor-rosa-antigo);
+            margin-top: 0.5rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transicao-suave);
+        }
+
+        .conteiner {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* ==========================================================================
+           2. CABEÇALHO E NAVEGAÇÃO
+           ========================================================================== */
+        .cabecalho {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--fundo-card-translucido);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--cor-borda);
+            transition: var(--transicao-suave);
+            box-shadow: 0 4px 15px var(--cor-sombra);
+        }
+
+        .navegacao {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 2.2rem;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+            color: var(--texto-destaque);
+            animation: flutuarBorboleta 4s ease-in-out infinite;
+        }
+
+        .menu-navegacao {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .menu-link {
+            font-family: var(--fonte-titulo);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--texto-principal);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .menu-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--texto-destaque);
+            transition: var(--transicao-suave);
+        }
+
+        .menu-link:hover::after {
+            width: 100%;
+        }
+
+        .acoes-cabecalho {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .botao-tema {
+            background: transparent;
+            border: 1px solid var(--cor-borda);
+            color: var(--texto-titulo);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transicao-suave);
+        }
+
+        .botao-tema:hover {
+            background-color: var(--cor-rosa-pastel);
+            transform: rotate(15deg) scale(1.05);
+        }
+
+        .menu-hamburguer {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--texto-titulo);
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           3. SEÇÃO HERO (APRESENTAÇÃO)
+           ========================================================================== */
+        .secao-hero {
+            min-height: 100vh;
+            padding-top: 120px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-conteudo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-texto {
+            z-index: 2;
+        }
+
+        .saudacao-mágica {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--cor-dourado);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-titulo {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitulo {
+            font-size: 1.6rem;
+            color: var(--texto-destaque);
+            margin-bottom: 1.5rem;
+            min-height: 2.2rem;
+            font-family: var(--fonte-titulo);
+        }
+
+        .hero-descricao {
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            text-align: justify;
+            background: var(--fundo-card-translucido);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px dashed var(--cor-borda);
+            box-shadow: 0 5px 20px var(--cor-sombra);
+        }
+
+        .botao-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--texto-destaque), var(--texto-titulo));
+            color: #ffffff !important;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-family: var(--fonte-titulo);
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 6px 20px rgba(214, 83, 120, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transicao-suave);
+        }
+
+        .botao-cta:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(214, 83, 120, 0.45);
+        }
+
+        .hero-ilustracao {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .moldura-castelo {
+            width: 100%;
+            max-width: 420px;
+            height: 480px;
+            background: var(--fundo-card);
+            border-radius: 200px 200px 20px 20px;
+            border: 2px solid var(--cor-borda);
+            padding: 15px;
+            box-shadow: 0 15px 35px var(--cor-sombra);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .arte-svg-castelo {
+            width: 100%;
+            height: 100%;
+            border-radius: 185px 185px 10px 10px;
+        }
+
+        /* ==========================================================================
+           4. SEÇÃO EDUCAÇÃO & LINHA DO TEMPO (ROADMAP)
+           ========================================================================== */
+        .secao-educacao {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .card-educacao-principal {
+            background: var(--fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--cor-sombra);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-educacao-principal::before {
+            content: "👑";
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.8rem;
+            background: var(--fundo-principal);
+            padding: 0 10px;
+            border-radius: 50%;
+        }
+
+        .instituicao-titulo {
+            font-size: 1.8rem;
+            color: var(--texto-titulo);
+            margin-bottom: 0.5rem;
+        }
+
+        .curso-subtitulo {
+            font-size: 1.2rem;
+            color: var(--texto-destaque);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Timeline / Roadmap */
+        .linha-do-tempo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .linha-do-tempo::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 15%;
+            right: 15%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--texto-destaque), var(--cor-borda));
+            z-index: 1;
+        }
+
+        .etapa-timeline {
+            background: var(--fundo-principal);
+            border: 1px solid var(--cor-borda);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            transition: var(--transicao-suave);
+        }
+
+        .etapa-timeline:hover {
+            transform: translateY(-5px);
+            border-color: var(--texto-destaque);
+        }
+
+        .etapa-icone {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--fundo-card);
+            border: 2px solid var(--texto-destaque);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.5rem;
+            color: var(--texto-destaque);
+            box-shadow: 0 4px 10px var(--cor-sombra);
+        }
+
+        .badge-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        .status-atual {
+            background-color: var(--texto-destaque);
+            color: #ffffff;
+        }
+
+        .status-proximo {
+            background-color: var(--cor-rosa-antigo);
+            color: #ffffff;
+        }
+
+        .status-futuro {
+            background-color: var(--cor-borda);
+            color: var(--texto-principal);
+        }
+
+        /* ==========================================================================
+           5. SEÇÃO HABILIDADES (HARD SKILLS)
+           ========================================================================== */
+        .secao-habilidades {
+            padding: 4rem 0 6rem 0;
+        }
+
+        .grid-habilidades {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card-habilidade {
+            background: var(--fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: var(--transicao-suave);
+            box-shadow: 0 4px 12px var(--cor-sombra);
+        }
+
+        .card-habilidade:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--texto-destaque);
+            box-shadow: 0 8px 20px rgba(214, 83, 120, 0.25);
+        }
+
+        .card-habilidade i {
+            font-size: 2.5rem;
+            color: var(--texto-destaque);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .card-habilidade h4 {
+            font-size: 1.1rem;
+            font-family: var(--fonte-corpo);
+        }
+
+        /* ==========================================================================
+           6. SEÇÃO PORTFÓLIO E ESTUDOS
+           ========================================================================== */
+        .secao-portfolio {
+            padding: 6rem 0;
+        }
+
+        .subsecao-titulo {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--texto-titulo);
+            border-bottom: 2px dashed var(--cor-borda);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Subseção A: Projetos de Destaque */
+        .grid-projetos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .card-projeto {
+            background: var(--fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px var(--cor-sombra);
+            transition: var(--transicao-suave);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-projeto:hover {
+            transform: translateY(-10px);
+            border-color: var(--texto-destaque);
+            box-shadow: 0 15px 30px rgba(214, 83, 120, 0.2);
+        }
+
+        .imagem-projeto {
+            width: 100%;
+            height: 180px;
+            background: var(--cor-rosa-pastel);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conteudo-projeto {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .titulo-projeto {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .descricao-projeto {
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .tecnologias-projeto {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-tec {
+            background-color: var(--fundo-principal);
+            border: 1px solid var(--cor-borda);
+            color: var(--texto-titulo);
+            font-size: 0.8rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .botoes-projeto {
+            display: flex;
+            gap: 10px;
+        }
+
+        .botao-projeto-link {
+            flex: 1;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: var(--fonte-titulo);
+            font-weight: 600;
+            border: 1px solid var(--texto-destaque);
+            transition: var(--transicao-suave);
+        }
+
+        .botao-deploy {
+            background-color: var(--texto-destaque);
+            color: #ffffff !important;
+        }
+
+        .botao-deploy:hover {
+            background-color: var(--texto-titulo);
+        }
+
+        .botao-repo {
+            background-color: transparent;
+            color: var(--texto-titulo);
+        }
+
+        .botao-repo:hover {
+            background-color: var(--cor-rosa-pastel);
+        }
+
+        /* Subseção B: Repositórios de Estudo */
+        .grid-estudos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card-estudo {
+            background: var(--fundo-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: 12px;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transicao-suave);
+        }
+
+        .card-estudo:hover {
+            transform: translateX(5px);
+            border-color: var(--texto-destaque);
+            background: var(--fundo-card-translucido);
+        }
+
+        .icone-estudo {
+            font-size: 1.8rem;
+            color: var(--texto-destaque);
+        }
+
+        .info-estudo h4 {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .info-estudo a {
+            font-size: 0.85rem;
+            color: var(--texto-destaque);
+            word-break: break-all;
+        }
+
+        .info-estudo a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           7. SEÇÃO CONTATO ("VAMOS CONVERSAR?")
+           ========================================================================== */
+        .secao-contato {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .grid-contato {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card-contato {
+            background: var(--fundo-card);
+            border: 2px solid var(--cor-borda);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            box-shadow: 0 8px 20px var(--cor-sombra);
+            transition: var(--transicao-suave);
+        }
+
+        .card-contato i {
+            font-size: 3rem;
+            transition: var(--transicao-suave);
+        }
+
+        .card-contato h3 {
+            font-size: 1.5rem;
+        }
+
+        .card-contato p {
+            font-size: 0.95rem;
+            color: var(--texto-principal);
+        }
+
+        /* Efeitos Personalizados de Hover para Cada Rede */
+        .contato-email:hover {
+            border-color: #D44638;
+            box-shadow: 0 10px 25px rgba(212, 70, 56, 0.25);
+            transform: translateY(-8px);
+        }
+        .contato-email:hover i {
+            color: #D44638;
+            transform: scale(1.15);
+        }
+
+        .contato-github:hover {
+            border-color: #6e5494;
+            box-shadow: 0 10px 25px rgba(110, 84, 148, 0.25);
+            transform: translateY(-8px);
+        }
+        .contato-github:hover i {
+            color: #6e5494;
+            transform: scale(1.15);
+        }
+
+        /* ==========================================================================
+           8. RODAPÉ E BOTÃO VOLTAR AO TOPO
+           ========================================================================== */
+        .rodape {
+            background-color: var(--fundo-card);
+            border-top: 1px solid var(--cor-borda);
+            padding: 2.5rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .rodape-texto {
+            font-size: 1rem;
+            color: var(--texto-principal);
+        }
+
+        .coracao-icone {
+            color: #D65378;
+            display: inline-block;
+            animation: pulsocaracao 1.5s ease infinite;
+        }
+
+        @keyframes pulsocaracao {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+
+        .botao-topo {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--texto-destaque);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transicao-suave);
+            z-index: 999;
+        }
+
+        .botao-topo.visivel {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .botao-topo:hover {
+            background-color: var(--texto-titulo);
+            transform: translateY(-4px);
+        }
+
+        /* Animações e Efeitos Especiais */
+        @keyframes flutuarBorboleta {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(10deg); }
+        }
+
+        .animar-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animar-scroll.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           9. RESPONSIVIDADE (MOBILE FIRST)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-conteudo {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-descricao {
+                text-align: center;
+            }
+
+            .hero-ilustracao {
+                margin-top: 2rem;
+            }
+
+            .grid-projetos {
+                grid-template-columns: 1fr;
+            }
+
+            .linha-do-tempo {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .linha-do-tempo::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-hamburguer {
+                display: block;
+            }
+
+            .menu-navegacao {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--fundo-card);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2.5rem;
+                transition: var(--transicao-suave);
+                box-shadow: 0 10px 20px var(--cor-sombra);
+            }
+
+            .menu-navegacao.ativo {
+                left: 0;
+            }
+
+            .hero-titulo {
+                font-size: 2.6rem;
+            }
+
+            .secao-titulo h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       CABEÇALHO / NAVEGAÇÃO
+       ========================================================================== -->
+    <header class="cabecalho">
+        <div class="conteiner navegacao">
+            <a href="#" class="logo">
+                <i class="bi bi-butterfly"></i>
+                <span class="titulo-cursivo">Isabel J. Siebert</span>
+            </a>
+
+            <nav>
+                <ul class="menu-navegacao" id="menu-navegacao">
+                    <li><a href="#sobre" class="menu-link">Sobre Mim</a></li>
+                    <li><a href="#educacao" class="menu-link">Educação</a></li>
+                    <li><a href="#habilidades" class="menu-link">Habilidades</a></li>
+                    <li><a href="#portfolio" class="menu-link">Portfólio</a></li>
+                    <li><a href="#contato" class="menu-link">Contato</a></li>
+                </ul>
+            </nav>
+
+            <div class="acoes-cabecalho">
+                <!-- Botão Alternador de Tema Claro / Escuro -->
+                <button class="botao-tema" id="botao-tema" aria-label="Alternar Tema">
+                    <i class="bi bi-moon-stars" id="icone-tema"></i>
+                </button>
+
+                <!-- Botão Menu Hamburguer para Telas Pequenas -->
+                <button class="menu-hamburguer" id="botao-menu" aria-label="Abrir Menu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+       SEÇÃO HERO (APRESENTAÇÃO INICIAL)
+       ========================================================================== -->
+    <section class="secao-hero" id="sobre">
+        <div class="conteiner hero-conteudo">
+            <div class="hero-texto animar-scroll">
+                <div class="saudacao-mágica">
+                    <i class="bi bi-stars"></i> Bem-vindo ao meu Portfólio
+                </div>
+                <h1 class="hero-titulo">Isabel J. Siebert</h1>
+                <div class="hero-subtitulo" id="efeito-digitacao"></div>
+                
+                <p class="hero-descricao">
+                    Sou estudante do 1º ano do Ensino Médio Técnico em Informática para Internet pela 
+                    <strong>SESC Escola</strong>, em parceria com o <strong>SENAC</strong>. Com forte foco em programação, 
+                    iniciei minha trilha de aprendizado me especializando em desenvolvimento Front-end. Nos próximos anos, 
+                    minha formação se expandirá para o Back-end (2º ano) e desenvolvimento Mobile (3º ano), construindo 
+                    uma base sólida para me tornar uma Desenvolvedora Full Stack. Gosto de aprender sobre programação e 
+                    tecnologia e desejo adquirir mais conhecimento nesta área.
+                </p>
+
+                <!-- Call To Action: Baixar Currículo -->
+                <a href="curriculo.pdf" download class="botao-cta">
+                    <i class="bi bi-file-earmark-arrow-down"></i>
+                    Baixar meu CV
+                </a>
+            </div>
+
+            <!-- Ilustração Temática SVG / Castelo de Conto de Fadas -->
+            <div class="hero-ilustracao animar-scroll">
+                <div class="moldura-castelo">
+                    <svg class="arte-svg-castelo" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="500" fill="url(#gradiente-ceu)"/>
+                        
+                        <!-- Lua Mágica -->
+                        <circle cx="320" cy="90" r="35" fill="#FFF8F1" opacity="0.9"/>
+                        <circle cx="330" cy="85" r="30" fill="#281321" opacity="0.2"/>
+                        
+                        <!-- Silhueta de Castelo Encantado -->
+                        <path d="M120 400V250L150 210L180 250V400H120Z" fill="var(--texto-titulo)" opacity="0.7"/>
+                        <path d="M220 400V220L250 180L280 220V400H220Z" fill="var(--texto-titulo)" opacity="0.8"/>
+                        <path d="M170 400V180L200 130L230 180V400H170Z" fill="var(--texto-titulo)"/>
+                        
+                        <!-- Torrinhas e Telhados -->
+                        <path d="M190 130L200 100L210 130H190Z" fill="var(--texto-destaque)"/>
+                        <path d="M140 210L150 190L160 210H140Z" fill="var(--texto-destaque)"/>
+                        <path d="M240 180L250 160L260 180H240Z" fill="var(--texto-destaque)"/>
+                        
+                        <!-- Janelas Iluminadas -->
+                        <rect x="192" y="200" width="16" height="25" rx="8" fill="#F4C5D9"/>
+                        <rect x="145" y="260" width="10" height="15" rx="5" fill="#F4C5D9"/>
+                        <rect x="245" y="240" width="10" height="15" rx="5" fill="#F4C5D9"/>
+                        
+                        <!-- Rosas Decorativas na Base -->
+                        <circle cx="80" cy="420" r="15" fill="var(--texto-destaque)"/>
+                        <circle cx="100" cy="430" r="12" fill="var(--cor-rosa-antigo)"/>
+                        <circle cx="300" cy="425" r="16" fill="var(--texto-destaque)"/>
+                        <circle cx="325" cy="435" r="10" fill="var(--cor-rosa-antigo)"/>
+
+                        <defs>
+                            <linearGradient id="gradiente-ceu" x1="200" y1="0" x2="200" y2="500" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="var(--cor-rosa-pastel)"/>
+                                <stop offset="1" stop-color="var(--fundo-card)"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       SEÇÃO EDUCAÇÃO & LINHA DO TEMPO (ROADMAP)
+       ========================================================================== -->
+    <section class="secao-educacao" id="educacao">
+        <div class="conteiner">
+            <div class="secao-titulo animar-scroll">
+                <h2>Formação Acadêmica</h2>
+                <div class="subtitulo titulo-cursivo">Minha Jornada de Estudos</div>
+            </div>
+
+            <div class="card-educacao-principal animar-scroll">
+                <h3 class="instituicao-titulo">SESC ESCOLA & SENAC</h3>
+                <p class="curso-subtitulo">Ensino Médio Integrado ao Técnico em Informática para Internet</p>
+                <p><i class="bi bi-calendar-event"></i> Conclusão prevista: <strong>2026</strong></p>
+            </div>
+
+            <!-- Roadmap da Carreira em 3 Etapas -->
+            <div class="linha-do-tempo animar-scroll">
+                <!-- 1º Ano -->
+                <div class="etapa-timeline">
+                    <div class="etapa-icone">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                    <h4>1º Ano: Front-end</h4>
+                    <p>Foco em HTML5, CSS3, JavaScript e Lógica de Programação.</p>
+                    <span class="badge-status status-atual">Atual / Em andamento</span>
+                </div>
+
+                <!-- 2º Ano -->
+                <div class="etapa-timeline">
+                    <div class="etapa-icone">
+                        <i class="bi bi-database-gear"></i>
+                    </div>
+                    <h4>2º Ano: Back-end</h4>
+                    <p>Desenvolvimento de APIs, banco de dados e regra de negócios.</p>
+                    <span class="badge-status status-proximo">Próximo Passo</span>
+                </div>
+
+                <!-- 3º Ano -->
+                <div class="etapa-timeline">
+                    <div class="etapa-icone">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h4>3º Ano: Mobile</h4>
+                    <p>Criação de aplicativos para dispositivos móveis.</p>
+                    <span class="badge-status status-futuro">Futuro</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       SEÇÃO HABILIDADES (HARD SKILLS)
+       ========================================================================== -->
+    <section class="secao-habilidades" id="habilidades">
+        <div class="conteiner">
+            <div class="secao-titulo animar-scroll">
+                <h2>Habilidades Técnicas</h2>
+                <div class="subtitulo titulo-cursivo">Conhecimentos e Ferramentas</div>
+            </div>
+
+            <div class="grid-habilidades animar-scroll">
+                <div class="card-habilidade">
+                    <i class="bi bi-filetype-html"></i>
+                    <h4>HTML5</h4>
+                </div>
+                <div class="card-habilidade">
+                    <i class="bi bi-filetype-css"></i>
+                    <h4>CSS3</h4>
+                </div>
+                <div class="card-habilidade">
+                    <i class="bi bi-filetype-js"></i>
+                    <h4>JavaScript</h4>
+                </div>
+                <div class="card-habilidade">
+                    <i class="bi bi-cpu"></i>
+                    <h4>Lógica de Programação</h4>
+                </div>
+                <div class="card-habilidade">
+                    <i class="bi bi-diagram-3"></i>
+                    <h4>Algoritmos</h4>
+                </div>
+                <div class="card-habilidade">
+                    <i class="bi bi-git"></i>
+                    <h4>Git</h4>
+                </div>
+                <div class="card-habilidade">
+                    <i class="bi bi-github"></i>
+                    <h4>GitHub</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       SEÇÃO PORTFÓLIO E ESTUDOS
+       ========================================================================== -->
+    <section class="secao-portfolio" id="portfolio">
+        <div class="conteiner">
+            <div class="secao-titulo animar-scroll">
+                <h2>Meu Portfólio</h2>
+                <div class="subtitulo titulo-cursivo">Projetos & Repositórios</div>
+            </div>
+
+            <!-- Subseção A: Projetos de Destaque -->
+            <h3 class="subsecao-titulo animar-scroll">
+                <i class="bi bi-journal-bookmark"></i> Projetos de Destaque
+            </h3>
+
+            <div class="grid-projetos animar-scroll">
+                <!-- Projeto 1 -->
+                <article class="card-projeto">
+                    <div class="imagem-projeto">
+                        <i class="bi bi-music-note-beamed" style="font-size: 3.5rem; color: var(--texto-destaque);"></i>
+                    </div>
+                    <div class="conteudo-projeto">
+                        <h4 class="titulo-projeto">Compasso Musical</h4>
+                        <p class="descricao-projeto">Um site elegante e responsivo focado no comércio eletrônico de instrumentos musicais.</p>
+                        <div class="tecnologias-projeto">
+                            <span class="badge-tec">HTML5</span>
+                            <span class="badge-tec">CSS3</span>
+                        </div>
+                        <div class="botoes-projeto">
+                            <a href="https://isabelsie-6.github.io/compasso-musical/" target="_blank" class="botao-projeto-link botao-deploy">
+                                <i class="bi bi-box-arrow-up-right"></i> Deploy
+                            </a>
+                            <a href="https://github.com/IsabelSie-6/compasso-musical" target="_blank" class="botao-projeto-link botao-repo">
+                                <i class="bi bi-github"></i> Código
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Projeto 2 -->
+                <article class="card-projeto">
+                    <div class="imagem-projeto">
+                        <i class="bi bi-pc-display" style="font-size: 3.5rem; color: var(--texto-destaque);"></i>
+                    </div>
+                    <div class="conteudo-projeto">
+                        <h4 class="titulo-projeto">DevSetup</h4>
+                        <p class="descricao-projeto">Website para e-commerce voltado à venda de hardware, computadores e periféricos de alta performance.</p>
+                        <div class="tecnologias-projeto">
+                            <span class="badge-tec">HTML5</span>
+                            <span class="badge-tec">CSS3</span>
+                        </div>
+                        <div class="botoes-projeto">
+                            <a href="https://isabelsie-6.github.io/projeto-devsetup/" target="_blank" class="botao-projeto-link botao-deploy">
+                                <i class="bi bi-box-arrow-up-right"></i> Deploy
+                            </a>
+                            <a href="https://github.com/IsabelSie-6/projeto-devsetup" target="_blank" class="botao-projeto-link botao-repo">
+                                <i class="bi bi-github"></i> Código
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Subseção B: Repositórios de Estudo -->
+            <h3 class="subsecao-titulo animar-scroll">
+                <i class="bi bi-book"></i> Repositórios de Estudo
+            </h3>
+
+            <div class="grid-estudos animar-scroll">
+                <!-- Estudo HTML -->
+                <div class="card-estudo">
+                    <i class="bi bi-file-code icone-estudo"></i>
+                    <div class="info-estudo">
+                        <h4>Trilha de HTML</h4>
+                        <a href="https://github.com/IsabelSie-6/html" target="_blank">
+                            github.com/IsabelSie-6/html <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Estudo JS -->
+                <div class="card-estudo">
+                    <i class="bi bi-filetype-js icone-estudo"></i>
+                    <div class="info-estudo">
+                        <h4>Trilha de JavaScript</h4>
+                        <a href="https://github.com/IsabelSie-6/javascript" target="_blank">
+                            github.com/IsabelSie-6/javascript <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Estudo Algoritmos -->
+                <div class="card-estudo">
+                    <i class="bi bi-terminal icone-estudo"></i>
+                    <div class="info-estudo">
+                        <h4>Algoritmos (Portugol)</h4>
+                        <a href="https://github.com/IsabelSie-6/Algoritmos" target="_blank">
+                            github.com/IsabelSie-6/Algoritmos <i class="bi bi-arrow-right-short"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       SEÇÃO CONTATO ("VAMOS CONVERSAR?")
+       ========================================================================== -->
+    <section class="secao-contato" id="contato">
+        <div class="conteiner">
+            <div class="secao-titulo animar-scroll">
+                <h2>Vamos Conversar?</h2>
+                <div class="subtitulo titulo-cursivo">Conecte-se Comigo</div>
+            </div>
+
+            <div class="grid-contato animar-scroll">
+                <!-- Card E-mail -->
+                <a href="mailto:isa.siebert.10@gmail.com" class="card-contato contato-email">
+                    <i class="bi bi-envelope-paper"></i>
+                    <h3>E-mail</h3>
+                    <p>isa.siebert.10@gmail.com</p>
+                </a>
+
+                <!-- Card GitHub -->
+                <a href="https://github.com/IsabelSie-6" target="_blank" class="card-contato contato-github">
+                    <i class="bi bi-github"></i>
+                    <h3>GitHub</h3>
+                    <p>github.com/IsabelSie-6</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+       RODAPÉ
+       ========================================================================== -->
+    <footer class="rodape">
+        <div class="conteiner">
+            <p class="rodape-texto">
+                Copyright © <span id="ano-atual"></span> - Desenvolvido com 
+                <span class="coracao-icone">♥</span> por 
+                <strong class="titulo-cursivo" style="font-size: 1.4rem;">Isabel J. Siebert</strong>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button class="botao-topo" id="botao-topo" aria-label="Voltar ao Topo">
+        <i class="bi bi-arrow-up-short"></i>
+    </button>
+
+    <!-- ==========================================================================
+       SCRIPT JAVASCRIPT VANILLA
+       ========================================================================== -->
+    <script>
+        /*
+          LÓGICA PRINCIPAL EM JAVASCRIPT VANILLA
+          Estudante: Isabel J. Siebert
+          Descrição: Manipulação do DOM para alternância de tema, menu responsivo,
+          efeito de digitação e animações de rolagem da página.
+        */
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. ALTERNÂNCIA DE TEMA (LIGHT / DARK MODE) COM PERSISTÊNCIA
+            const elementoHtml = document.documentElement;
+            const botaoTema = document.getElementById('botao-tema');
+            const iconeTema = document.getElementById('icone-tema');
+
+            // Verifica preferência anterior no localStorage
+            const temaSalvo = localStorage.getItem('tema_portfolio') || 'claro';
+            aplicarTema(temaSalvo);
+
+            botaoTema.addEventListener('click', () => {
+                const temaAtual = elementoHtml.getAttribute('data-tema');
+                const novoTema = temaAtual === 'claro' ? 'escuro' : 'claro';
+                aplicarTema(novoTema);
+            });
+
+            function aplicarTema(tema) {
+                elementoHtml.setAttribute('data-tema', tema);
+                localStorage.setItem('tema_portfolio', tema);
+
+                if (tema === 'escuro') {
+                    iconeTema.className = 'bi bi-sun';
+                } else {
+                    iconeTema.className = 'bi bi-moon-stars';
+                }
+            }
+
+            // 2. MENU HAMBÚRGUER PARA TELAS DISPOSITIVOS MÓVEIS
+            const botaoMenu = document.getElementById('botao-menu');
+            const menuNavegacao = document.getElementById('menu-navegacao');
+
+            botaoMenu.addEventListener('click', () => {
+                menuNavegacao.classList.toggle('ativo');
+                const menuAberto = menuNavegacao.classList.contains('ativo');
+                botaoMenu.innerHTML = menuAberto ? '<i class="bi bi-x-lg"></i>' : '<i class="bi bi-list"></i>';
+            });
+
+            // Fecha menu ao clicar em qualquer link
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuNavegacao.classList.remove('ativo');
+                    botaoMenu.innerHTML = '<i class="bi bi-list"></i>';
+                });
+            });
+
+            // 3. EFEITO MÁQUINA DE ESCREVER (TYPING EFFECT)
+            const textoParaDigitar = "Estudante de Desenvolvimento Full Stack";
+            const elementoDigitacao = document.getElementById('efeito-digitacao');
+            let indiceCaractere = 0;
+
+            function digitarTexto() {
+                if (indiceCaractere < textoParaDigitar.length) {
+                    elementoDigitacao.textContent += textoParaDigitar.charAt(indiceCaractere);
+                    indiceCaractere++;
+                    setTimeout(digitarTexto, 90);
+                }
+            }
+            digitarTexto();
+
+            // 4. BOTÃO "VOLTAR AO TOPO" E SCROLL SUAVE
+            const botaoTopo = document.getElementById('botao-topo');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    botaoTopo.classList.add('visivel');
+                } else {
+                    botaoTopo.classList.remove('visivel');
+                }
+            });
+
+            botaoTopo.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 5. ANO ATUAL DINÂMICO NO RODAPÉ
+            document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+            // 6. ANIMAÇÃO DE ENTRADA AO ROLAR A PÁGINA (INTERSECTION OBSERVER)
+            const elementosParaAnimar = document.querySelectorAll('.animar-scroll');
+
+            const observador = new IntersectionObserver((entradas) => {
+                entradas.forEach(entrada => {
+                    if (entrada.isIntersecting) {
+                        entrada.target.classList.add('visivel');
+                    }
+                });
+            }, {
+                threshold: 0.15
+            });
+
+            elementosParaAnimar.forEach(elemento => observador.observe(elemento));
+        });
+    </script>
+</body>
+</html>
